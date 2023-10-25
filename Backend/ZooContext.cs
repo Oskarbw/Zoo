@@ -20,6 +20,7 @@ namespace Zoo.Backend
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlite("Data Source=.\\DbZoo");
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -28,7 +29,7 @@ namespace Zoo.Backend
             modelBuilder.Entity<Animal>(eb =>
             {
                 eb.HasKey(a => a.Id);
-                eb.Property(a => a.Name).HasColumnType("varchar(50");
+                eb.Property(a => a.Name).HasColumnType("varchar(50)");
                 eb.Property(a => a.Species).IsRequired();
                 eb.HasOne(a => a.Caretaker)
                 .WithMany(ct => ct.Animals)
@@ -37,8 +38,8 @@ namespace Zoo.Backend
             modelBuilder.Entity<Caretaker>(eb =>
             {
                 eb.HasKey(ct => ct.Id);
-                eb.Property(ct => ct.FirstName).HasColumnName("varchar(50");
-                eb.Property(ct => ct.LastName).HasColumnName("varchar(50");
+                eb.Property(ct => ct.FirstName).HasColumnType("varchar(50)");
+                eb.Property(ct => ct.LastName).HasColumnType("varchar(50)");
             });
         }
     }
